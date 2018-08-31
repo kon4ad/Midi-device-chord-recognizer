@@ -1,4 +1,6 @@
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiUnavailableException;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class ConsoleView {
@@ -11,17 +13,10 @@ public class ConsoleView {
         System.out.println("from below list choose your midi controller");
         System.out.println("sometimes one midi controller has few outputs");
         System.out.println("you have to choose correct one.");
-        this.printingAndChoosingDeviceService();
+        this.printAvailableDevicesAndReturnDevicesNumber();
     }
 
-    private void printingAndChoosingDeviceService(){
-        int devicesNumber = this.printAvailableDevicesAndReturnDevicesNumber();
-        System.out.println(++devicesNumber + ". " + "RELOAD DEVICES LIST");
-        int input = 0;
-        if(input == devicesNumber){
-            this.printingAndChoosingDeviceService();
-        }
-    }
+
 
     private int printAvailableDevicesAndReturnDevicesNumber(){
         while(true){
