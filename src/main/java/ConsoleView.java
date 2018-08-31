@@ -13,28 +13,31 @@ public class ConsoleView {
         System.out.println("from below list choose your midi controller");
         System.out.println("sometimes one midi controller has few outputs");
         System.out.println("you have to choose correct one.");
-        int deviceNumber = this.printAvailableDevicesAndReturnDevicesNumber();
-
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Enter device number: ");
-        int input = scan.nextInt();
-        while(input  == deviceNumber){
-            this.printAvailableDevicesAndReturnDevicesNumber();
-            System.out.print("Enter device number: ");
-            input = scan.nextInt();
-        }
-        MidiDevice md = null;
-        try {
-            md = this.controllerService.getMidiDevice(input);
-        } catch (MidiUnavailableException e) {
-            e.printStackTrace();
-        } catch(ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
-        }
-        System.out.print(md);
+        System.out.print(this.printingAndReturnDeviceService());
     }
 
-
+    private MidiDevice printingAndReturnDeviceService(){
+        int devicesNumber = this.printAvailableDevicesAndReturnDevicesNumber();
+        Scanner reader = new Scanner(System.in);
+        System.out.println(++devicesNumber + ". " + "RELOAD DEVICES LIST");
+        System.out.print("Enter device numer: ");
+        int input = reader.nextInt();
+        MidiDevice md = null;
+        if(input == devicesNumber){
+           return this.printingAndReturnDeviceService();
+        }else {
+            try {
+                md = this.controllerService.getMidiDevice(input);
+            } catch (MidiUnavailableException e) {
+                System.out.println("This device throw errors, try with another.");
+                return this.printingAndReturnDeviceService();
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Incorrect numer, try again.");
+                return this.printingAndReturnDeviceService();
+            }
+        }
+        return md;
+    }
 
     private int printAvailableDevicesAndReturnDevicesNumber(){
         while(true){
@@ -51,8 +54,7 @@ public class ConsoleView {
                 for(MidiDevice.Info i : dl){
                     System.out.println(cnt++ + ". "+ i.toString());
                 }
-                System.out.println(cnt +". "+ "RELOAD LIST");
-                return cnt;
+                return --cnt;
            }
         }
     }
