@@ -13,7 +13,25 @@ public class ConsoleView {
         System.out.println("from below list choose your midi controller");
         System.out.println("sometimes one midi controller has few outputs");
         System.out.println("you have to choose correct one.");
-        this.printAvailableDevicesAndReturnDevicesNumber();
+        int deviceNumber = this.printAvailableDevicesAndReturnDevicesNumber();
+
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter device number: ");
+        int input = scan.nextInt();
+        while(input  == deviceNumber){
+            this.printAvailableDevicesAndReturnDevicesNumber();
+            System.out.print("Enter device number: ");
+            input = scan.nextInt();
+        }
+        MidiDevice md = null;
+        try {
+            md = this.controllerService.getMidiDevice(input);
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+        } catch(ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
+        System.out.print(md);
     }
 
 
@@ -33,7 +51,8 @@ public class ConsoleView {
                 for(MidiDevice.Info i : dl){
                     System.out.println(cnt++ + ". "+ i.toString());
                 }
-                return --cnt;
+                System.out.println(cnt +". "+ "RELOAD LIST");
+                return cnt;
            }
         }
     }
