@@ -1,6 +1,8 @@
+package com.k8nrd;
+
+
 import java.io.Serializable;
 import java.util.List;
-
 
 public class Chord implements Serializable {
     private String fullName;
@@ -30,5 +32,3 @@ public class Chord implements Serializable {
                 '}';
     }
 }
-
-

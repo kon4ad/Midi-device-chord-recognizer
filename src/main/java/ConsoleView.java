@@ -5,15 +5,18 @@ import java.util.concurrent.TimeUnit;
 
 public class ConsoleView {
     private ControllerService controllerService;
+    private ChordFinder chordFinder;
     public ConsoleView(){
         this.controllerService = new ControllerService();
+        this.chordFinder = new ChordFinder();
     }
     public void startView() {
         System.out.println("*_*_*_*_*_*_Midi Chord Recognizer*_*_*_*_*_*_*");
         System.out.println("from below list choose your midi controller");
         System.out.println("sometimes one midi controller has few outputs");
         System.out.println("you have to choose correct one.");
-        System.out.print(this.printingAndReturnDeviceService());
+        this.chordFinder.startMidiListenerWithChordFinder(this.printingAndReturnDeviceService());
+        System.out.println("Now you can play! -- Enjoy chord learning!");
     }
 
     private MidiDevice printingAndReturnDeviceService(){
@@ -28,6 +31,10 @@ public class ConsoleView {
         }else {
             try {
                 md = this.controllerService.getMidiDevice(input);
+                if(!this.chordFinder.checkMidiDevice(md)){
+                    System.out.println("This device cannot be served.");
+                    return this.printingAndReturnDeviceService();
+                }
             } catch (MidiUnavailableException e) {
                 System.out.println("This device throw errors, try with another.");
                 return this.printingAndReturnDeviceService();
