@@ -2,7 +2,7 @@ import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 
-public class ControllerService {
+public class ControllerService implements DeviceService {
 
     public MidiDevice.Info[] getArrayAvailableMidiDevices(){
         return MidiSystem.getMidiDeviceInfo();

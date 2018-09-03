@@ -3,8 +3,11 @@ package com.k8nrd;
 
 import java.io.Serializable;
 import java.util.List;
-
+/**Class taken from my other project(Chord parser)
+ * Used for parsing chords from file.
+ */
 public class Chord implements Serializable {
+
     private String fullName;
     private List<String> notesList;
 

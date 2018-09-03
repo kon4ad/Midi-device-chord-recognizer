@@ -4,8 +4,8 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class ConsoleView {
-    private ControllerService controllerService;
-    private ChordFinder chordFinder;
+    private DeviceService controllerService;
+    private MidiDeviceChords chordFinder;
     public ConsoleView(){
         this.controllerService = new ControllerService();
         this.chordFinder = new ChordFinder();

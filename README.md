@@ -4,3 +4,7 @@ Console app to check chords playing on your MIDI device. Tested on M-Audio Axiom
   1. plug-in your midi
   2. choose your midi
   3. play and learn!
+
+### to do
+    1. tests
+    2. clean code

@@ -9,7 +9,7 @@ import java.util.List;
 import org.jfugue.devices.MusicTransmitterToParserListener;
 import com.k8nrd.Chord;
 
-public class ChordFinder {
+public class ChordFinder implements MidiDeviceChords {
     private List<Chord> chordList;
 
     public ChordFinder() {
